@@ -2,6 +2,7 @@ package ApiTestCases;
 
 import base.TestBase;
 import io.restassured.response.ResponseBody;
+import org.testng.annotations.Test;
 import utils.Properties;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class TestApi extends TestBase {
     private String userPhoneNumber;
 
 
-    @org.testng.annotations.Test
+    @Test
     public void getUsers() {
         ResponseBody userData = given().
                 header("Authorization", "Bearer " + token).
@@ -26,7 +27,7 @@ public class TestApi extends TestBase {
     }
 
 
-    @org.testng.annotations.Test(dependsOnMethods = "getUsers")
+    @Test(dependsOnMethods = "getUsers")
     public void getRecordOfUser() {
         ResponseBody userData = given().header("Authorization", "Bearer " + token).when().get(String.format(Properties.userRecordByPhoneEndPoint, userPhoneNumber)).andReturn().then().
                 statusCode(200).extract().response().getBody();
